@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Seguimiento de Solicitud de Reválida - CRUB - UNCo{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+        }
+
+        body {
+            background-color: var(--background-color);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .form-control {
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .tracking-container {
+            padding: 20px 12px 20px 4px;
+            position: relative;
+            margin-left: 4px;
+        }
+
+        .tracking-step::before {
+            content: '';
+            position: absolute;
+            left: -3px;
+            top: -2px;
+            bottom: -2px;
+            width: 3px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+        }
+
+        .tracking-step .step-icon {
+            position: absolute;
+            left: -19px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #94a3b8;
+            color: #94a3b8;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+        }
+
+        .tracking-step.current::before {
+            background: linear-gradient(180deg, 
+                rgba(37, 99, 235, 0.6) 0%,
+                rgba(37, 99, 235, 1) 20%,
+                rgba(37, 99, 235, 1) 80%,
+                rgba(37, 99, 235, 0.6) 100%
+            );
+        }
+
+        .tracking-step.completed::before {
+            background: linear-gradient(180deg, 
+                rgba(134, 239, 172, 0.6) 0%,
+                rgba(134, 239, 172, 1) 20%,
+                rgba(134, 239, 172, 1) 80%,
+                rgba(134, 239, 172, 0.6) 100%
+            );
+        }
+
+        .tracking-step.current .step-icon {
+            left: -20px;
+            width: 36px;
+            height: 36px;
+        }
+
+        .tracking-step.current .step-content {
+            margin-left: 6px;
+            padding-right: 8px;
+        }
+
+        .tracking-step.current .step-text {
+            color: var(--primary-color);
+            font-size: 1.05em;
+        }
+
+        .tracking-step.style.completed .step-icon {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            position: relative;
+            left: 0;
+        }
+
+        .tracking-step.completed .step-icon svg {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            position: relative;
+            left: 0;
+        }
+
+        .tracking-step.completed .step-icon {
+            background-color: #86efac;
+            border-color: #86efac;
+            color: white;
+            left: -19px;
+        }
+
+        .tracking-step.completed .step-content {
+            margin-left: 4px; /* Tighter spacing for completed items */
+        }
+
+        .tracking-step.completed .step-text {
+            color: #15803d;
+            opacity: 0.7;
+        }
+
+        .tracking-step.current .email-notification {
+            background-color: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .tracking-step.current .email-notification:hover {
+            background-color: rgba(37, 99, 235, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .tracking-step.current .email-notification .email-text {
+            margin: 0;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+
+        .tracking-step.current .email-notification strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .tracking-step.current:last-child .email-notification {
+            margin-bottom: 8px;
+        }
+
+        .progress-pulse {
+            width: 12px;
+            height: 12px;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+            }
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 0;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .alert {
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            border: none;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header text-center">
+        <div class="container">
+            <h1>Seguimiento de Solicitud de Reválida</h1>
+            <p class="mb-0">Centro Regional Universitario Bariloche - Universidad Nacional del Comahue</p>
+        </div>
+    </div>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="footer text-center">
+        <div class="container">
+            <p class="mb-0">© {{ current_year }} Centro Regional Universitario Bariloche - Universidad Nacional del Comahue</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body text-center p-5">
+                <img src="https://www.uncoma.edu.ar/wp-content/uploads/2018/08/logo-unco-768x209.png" alt="UNCo Logo" class="img-fluid mb-4" style="max-width: 300px;">
+                <h2 class="card-title mb-4">Consulta tu Trámite de Reválida</h2>
+                
+                {% if error %}
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    <div>{{ error }}</div>
+                </div>
+                {% endif %}
+                
+                <form method="POST" action="{{ url_for('consulta') }}" class="text-start">
+                    <div class="mb-4">
+                        <label for="dni" class="form-label">Número de DNI</label>
+                        <input type="text" class="form-control form-control-lg" id="dni" name="dni" 
+                               placeholder="Ingrese su DNI sin puntos" required 
+                               pattern="[0-9]{7,8}" 
+                               title="Por favor ingrese 7 u 8 números sin puntos">
+                        <div class="form-text">Ingrese solo números, sin puntos ni espacios.</div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            Consultar Estado
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3 class="card-title h4 mb-4">¿Cómo usar este servicio?</h3>
+                <div class="d-flex align-items-start mb-3">
+                    <div class="bg-primary text-white rounded-circle p-2 me-3" style="width: 32px; height: 32px; text-align: center;">1</div>
+                    <div>
+                        <strong>Ingresa tu DNI</strong>
+                        <p class="text-muted mb-0">Escribe tu número de DNI sin puntos ni espacios en el campo arriba.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start mb-3">
+                    <div class="bg-primary text-white rounded-circle p-2 me-3" style="width: 32px; height: 32px; text-align: center;">2</div>
+                    <div>
+                        <strong>Consulta el estado</strong>
+                        <p class="text-muted mb-0">Presiona el botón "Consultar Estado" para ver la información de tu trámite.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start">
+                    <div class="bg-primary text-white rounded-circle p-2 me-3" style="width: 32px; height: 32px; text-align: center;">3</div>
+                    <div>
+                        <strong>Visualiza el progreso</strong>
+                        <p class="text-muted mb-0">Podrás ver en qué etapa se encuentra tu solicitud de reválida actualmente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

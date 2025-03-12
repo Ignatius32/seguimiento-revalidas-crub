@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body text-center p-5">
+                <div class="mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-exclamation-circle text-danger" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                    </svg>
+                </div>
+                <h2 class="card-title mb-4">Lo sentimos</h2>
+                <p class="text-muted mb-4">{{ error if error else "Ocurrió un error al procesar su solicitud. Por favor, intente nuevamente más tarde." }}</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise me-2" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                        </svg>
+                        Intentar nuevamente
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3 class="card-title h4 mb-4">¿Qué puede hacer?</h3>
+                <div class="d-flex align-items-start mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3" style="width: 32px; height: 32px; text-align: center;">1</div>
+                    <div>
+                        <strong>Verifique su DNI</strong>
+                        <p class="text-muted mb-0">Asegúrese de ingresar su DNI correctamente, sin puntos ni espacios.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3" style="width: 32px; height: 32px; text-align: center;">2</div>
+                    <div>
+                        <strong>Espere unos minutos</strong>
+                        <p class="text-muted mb-0">Si el problema persiste, espere unos minutos y vuelva a intentarlo.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start">
+                    <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3" style="width: 32px; height: 32px; text-align: center;">3</div>
+                    <div>
+                        <strong>Contacte soporte</strong>
+                        <p class="text-muted mb-0">Si el problema continúa, por favor contacte al soporte técnico.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
