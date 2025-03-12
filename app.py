@@ -35,7 +35,7 @@ def get_sheet():
 
 # Define the possible status steps in order
 ESTADOS = [
-    "Proceso inicial del trámite en Sede Central UNCo",
+    "Solicitud recibida en Sede Central",
     "Ingreso al Centro Regional Universitario Bariloche UNCo",
     "En revisión de la Comisión de Reválida",
     "Elevado a Sede Central UNCo para continuidad del trámite"
