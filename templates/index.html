@@ -17,7 +17,7 @@
                 </div>
                 {% endif %}
                 
-                <form method="POST" action="{{ url_for('consulta') }}" class="text-start">
+                <form method="POST" action="{{ url_for('consulta') }}" class="text-start" id="consultaForm">
                     <div class="mb-4">
                         <label for="dni" class="form-label">Número de DNI</label>
                         <input type="text" class="form-control form-control-lg" id="dni" name="dni" 
@@ -39,21 +39,21 @@
             <div class="card-body">
                 <h3 class="card-title h4 mb-4">¿Cómo usar este servicio?</h3>
                 <div class="d-flex align-items-start mb-3">
-                    <div class="bg-primary text-white rounded-circle me-3" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">1</div>
+                    <div class="me-3 fw-bold">1.</div>
                     <div>
                         <strong>Ingresa tu DNI</strong>
                         <p class="text-muted mb-0">Escribe tu número de DNI sin puntos ni espacios en el campo arriba.</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-start mb-3">
-                    <div class="bg-primary text-white rounded-circle me-3" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">2</div>
+                    <div class="me-3 fw-bold">2.</div>
                     <div>
                         <strong>Consulta el estado</strong>
                         <p class="text-muted mb-0">Presiona el botón "Consultar Estado" para ver la información de tu trámite.</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-start">
-                    <div class="bg-primary text-white rounded-circle me-3" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">3</div>
+                    <div class="me-3 fw-bold">3.</div>
                     <div>
                         <strong>Visualiza el progreso</strong>
                         <p class="text-muted mb-0">Podrás ver en qué etapa se encuentra tu solicitud de reválida actualmente.</p>
@@ -63,4 +63,26 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('consultaForm');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        
+        form.addEventListener('submit', function(e) {
+            // Check form validity first
+            if (form.checkValidity()) {
+                // Show the loading spinner
+                loadingOverlay.classList.add('active');
+                
+                // Disable the submit button to prevent double submission
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Consultando...';
+            }
+        });
+    });
+</script>
 {% endblock %}
